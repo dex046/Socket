@@ -4,8 +4,8 @@
 #include "CThread.h"
 #include "CThreadMutex.h"
 #include "CThreadPool.h"
-///class CThreadPool;
-class CWorkThread
+class CThreadPool;
+class CWorkThread : public CThread
 {
 private:
     CThreadPool* m_ThreadPool;
@@ -22,6 +22,7 @@ public:
     CWorkThread();
     virtual ~CWorkThread();
     void Run();
+    void Start();
     void SetJob(CJob* job, void* jobdata);
     CJob* GetJob(){return this->m_Job;}
     void SetThreadPool(CThreadPool* threadpool);

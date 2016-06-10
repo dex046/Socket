@@ -38,7 +38,7 @@ public:
     CCondition m_IdleJobCond;
     CCondition m_MaxNumCond;
 
-    vector<CWorkThread*> m_ThreadList;
+    vector<CWorkThread*> m_ThreadList;//这个是不是没有什么作用?
     vector<CWorkThread*> m_BusyList;
     vector<CWorkThread*> m_IdleList;
 

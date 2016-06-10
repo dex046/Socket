@@ -1,15 +1,18 @@
 #ifndef MYCONDITION_H
 #define MYCONDITION_H
 #include "common.h"
+#include "CThreadMutex.h"
 class CCondition
 {
 private:
     pthread_cond_t m_Cond;
-    pthread_mutex_t m_Mutex;
+    CThreadMutex m_Mutex;
 public:
-    CCondition();
+    CCondition(CThreadMutex& m_Mutex);
     ~CCondition();
     void Wait();
+    void notify();
+    void notifyAll();
 };
 
 #endif // MYCONDITION_H

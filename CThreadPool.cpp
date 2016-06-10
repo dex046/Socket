@@ -52,5 +52,48 @@ void CThreadPool::TerminateAll()
 
 CWorkThread* CThreadPool::_GetIdleThread()
 {
+    while(m_IdleList.size() == 0)
+        m_IdleCond.Wait();
+
+    {
+        CThreadMutexGuard guard_mutex = new CThreadMutexGuard(m_IdleMutex);
+        if(m_IdleList.size() > 0)
+        {
+            CWorkThread* thr = (CWorkThread*)m_IdleList.front();
+            cout << "Get Idle thread " << thr->GetThreadID() << endl;
+            return thr;
+        }
+    }
+
+    return NULL;
+}
+
+void CThreadPool::_AppendToIdleList(CWorkThread* jobthread)
+{
+    CThreadMutexGuard guard_mutex = new CThreadMutexGuard(m_IdleMutex);
+    m_IdleList.push_back(jobthread);
+    m_ThreadList.push_back(jobthread);
+}
+
+void CThreadPool::_MoveToBusyList(CWorkThread *idlethread)
+{
+    {
+        CThreadMutexGuard guard_mutex = new CThreadMutexGuard(m_BusyMutex);
+        m_BusyList.push_back(idlethread);
+        m_AvailNum--;
+    }
+
+    {
+        CThreadMutexGuard guardmutex = new CThreadMutexGuard(m_IdleMutex);
+        vector<CWorkThread*>::iterator pos;
+        pos = find(m_IdleList.begin(), m_IdleList.end(), idlethread);
+        if(pos != m_BusyList.end())
+        {
+            m_BusyList.erase(pos);
+        }
+    }
+
+    m_IdleCond.notify();
+
 
 }
