@@ -5,4 +5,5 @@
 #include <vector>
 #include <string>
 #include <assert.h>
+#include <algorithm>
 #endif // COMMON_H

@@ -9,9 +9,9 @@ CThreadMutex::~CThreadMutex()
     pthread_mutex_destroy(&m_Mutex);
 }
 
-pthread_mutex_t CThreadMutex::GetPthreadMutex()
+pthread_mutex_t* CThreadMutex::GetPthreadMutex()
 {
-    return this->m_Mutex;
+    return &this->m_Mutex;
 }
 
 void CThreadMutex::Lock()

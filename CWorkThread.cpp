@@ -33,3 +33,19 @@ void CWorkThread::Run()
         m_ThreadPool->_MoveToIdleList(this);
     }
 }
+
+void CWorkThread::SetJob(CJob *job, void *jobdata)
+{
+
+}
+
+void CWorkThread::SetThreadPool(CThreadPool *threadpool)
+{
+
+}
+
+void CWorkThread::Start()
+{
+
+}
+

@@ -6,8 +6,8 @@ class noncopyable
 //    noncopyable(noncopyable &);
 //    noncopyable(noncopyable &&);
 protected:
-    noncopyable();
-    ~noncopyable();
+    noncopyable(){}
+    //~noncopyable(){}
 
 private:
     noncopyable(const noncopyable&) = delete;

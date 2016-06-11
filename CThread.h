@@ -20,10 +20,10 @@ protected:
     void _SetErrcode(int errcode);
     static void* _ThreadFunction(void*);
 public:
-    //Mythread();
-    CThread(bool m_Detach = false, bool m_CreateSuspended = false);
-    virtual ~CThread();
-    virtual void run(void) = 0;
+    CThread(){}
+    CThread(bool m_Detach, bool m_CreateSuspended);
+    virtual ~CThread(){}
+    virtual void Run(void) = 0;
     void SetThreadState(ThreadState state){m_ThreadState = state;}
 
     bool Terminate(void);

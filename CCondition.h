@@ -8,6 +8,7 @@ private:
     pthread_cond_t m_Cond;
     CThreadMutex m_Mutex;
 public:
+    CCondition(){}
     CCondition(CThreadMutex& m_Mutex);
     ~CCondition();
     void Wait();

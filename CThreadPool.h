@@ -6,6 +6,7 @@
 #include "CCondition.h"
 using namespace std;
 
+class CWorkThread;
 class CThreadPool
 {
     friend class CWorkThread;
@@ -21,7 +22,7 @@ protected:
     CWorkThread* _GetIdleThread();
 
     void _AppendToIdleList(CWorkThread* jobthread);
-    void _MoveToBusyList(CWorkThread* idlethread);
+    void _MoveToBusyList(CWorkThread *idlethread);
     void _MoveToIdleList(CWorkThread* busythread);
 
     void _DeleteIdleThread(int num);
@@ -31,7 +32,7 @@ public:
     CThreadMutex m_BusyMutex;
     CThreadMutex m_IdleMutex;
     CThreadMutex m_JobMutex;
-    CThreadMutex m_varMutex;//
+    CThreadMutex m_varMutex;//更改成员变量需要使用的mutex
 
     CCondition m_BusyCond;
     CCondition m_IdleCond;

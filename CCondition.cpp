@@ -6,12 +6,12 @@ CCondition::CCondition(CThreadMutex& m_Mutex) : m_Mutex(m_Mutex)
 
 CCondition::~CCondition()
 {
-    pthread_condattr_destroy(&m_Cond, NULL);
+    pthread_cond_destroy(&m_Cond);
 }
 
 void CCondition::Wait()
 {
-    pthread_cond_wait(&m_Cond, &m_Mutex.GetPthreadMutex());
+    pthread_cond_wait(&m_Cond, m_Mutex.GetPthreadMutex());
 }
 
 void CCondition::notify()
