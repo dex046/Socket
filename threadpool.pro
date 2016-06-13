@@ -4,25 +4,25 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    CCondition.cpp \
-    CJob.cpp \
-    CThread.cpp \
-    CThreadManager.cpp \
-    CThreadMutex.cpp \
-    CThreadPool.cpp \
-    CWorkThread.cpp
+    ./base/CCondition.cpp \
+    ./base/CJob.cpp \
+    ./base/CThread.cpp \
+    ./base/CThreadManager.cpp \
+    ./base/CThreadMutex.cpp \
+    ./base/CThreadPool.cpp \
+    ./base/CWorkThread.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    noncopyable.h \
-    common.h \
-    CCondition.h \
-    CJob.h \
-    CThread.h \
-    CThreadManager.h \
-    CThreadMutex.h \
-    CThreadPool.h \
-    CWorkThread.h
+    ./base/noncopyable.h \
+    ./base/common.h \
+    ./base/CCondition.h \
+    ./base/CJob.h \
+    ./base/CThread.h \
+    ./base/CThreadManager.h \
+    ./base/CThreadMutex.h \
+    ./base/CThreadPool.h \
+    ./base/CWorkThread.h
 
