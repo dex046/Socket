@@ -11,6 +11,7 @@ CCondition::~CCondition()
 
 void CCondition::Wait()
 {
+    CThreadMutexGuard temp(this->m_Mutex);
     pthread_cond_wait(&m_Cond, m_Mutex.GetPthreadMutex());
 }
 

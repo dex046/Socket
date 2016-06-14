@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     ./base/CThreadManager.cpp \
     ./base/CThreadMutex.cpp \
     ./base/CThreadPool.cpp \
-    ./base/CWorkThread.cpp
+    ./base/CWorkThread.cpp \
+    ./base/CPthread-barrier.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
@@ -24,5 +25,6 @@ HEADERS += \
     ./base/CThreadManager.h \
     ./base/CThreadMutex.h \
     ./base/CThreadPool.h \
-    ./base/CWorkThread.h
+    ./base/CWorkThread.h \
+    ./base/CPthread-barrier.h
 
