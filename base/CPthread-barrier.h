@@ -11,6 +11,7 @@ private:
     int m_Total;
     CThreadMutex m_Mutex;
     CCondition m_Cond;
+
 protected:
     Barrier_init(Barrier_t *b, int count);
     Barrier_destroy();

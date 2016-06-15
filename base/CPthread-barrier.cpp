@@ -1,7 +1,6 @@
 #include "CPthread-barrier.h"
 void Barrier_t::Barrier_destroy()
 {
-
 }
 
 void Barrier_t::Barrier_init(Barrier_t *b, int count)
