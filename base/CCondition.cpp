@@ -1,4 +1,5 @@
 #include "CCondition.h"
+#include "common.h"
 CCondition::CCondition(CThreadMutex& m_Mutex) : m_Mutex(m_Mutex)
 {
     pthread_cond_init(&m_Cond, NULL);
@@ -11,6 +12,8 @@ CCondition::~CCondition()
 
 void CCondition::Wait()
 {
+    std::cout << "thread" << getpid() << std::endl;
+    sleep(1);
     CThreadMutexGuard temp(this->m_Mutex);
     pthread_cond_wait(&m_Cond, m_Mutex.GetPthreadMutex());
 }

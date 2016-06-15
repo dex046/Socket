@@ -7,17 +7,19 @@
 class Barrier_t
 {
 private:
-    int m_Count;
+    volatile int m_Count;
     int m_Total;
     CThreadMutex m_Mutex;
     CCondition m_Cond;
 
 protected:
-    Barrier_init(Barrier_t *b, int count);
-    Barrier_destroy();
+    void Barrier_init(int count);
+    void Barrier_destroy();
 public:
-    Barrier_t();
+    Barrier_t(){}
+    Barrier_t(int count);
     ~Barrier_t();
+    int Barrier_wait();
 };
 
 
