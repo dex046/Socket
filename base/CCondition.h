@@ -6,10 +6,9 @@ class CCondition
 {
 private:
     pthread_cond_t m_Cond;
-    CThreadMutex m_Mutex;
+    CThreadMutex &m_Mutex;
 public:
-    CCondition(){}
-    CCondition(CThreadMutex& m_Mutex);
+    explicit CCondition(CThreadMutex& m_Mutex);
     ~CCondition();
     void Wait();
     void notify();

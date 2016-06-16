@@ -1,5 +1,6 @@
 #include "CWorkThread.h"
-CWorkThread::CWorkThread()
+CWorkThread::CWorkThread(CThreadMutex &m_Mutex, CCondition &m_JobCond, CThreadMutex &m_WorkMutex)
+    : m_Mutex(m_Mutex), m_JobCond(m_JobCond), m_WorkMutex(m_WorkMutex)
 {
     this->m_Job = NULL;
     this->m_JobData = NULL;

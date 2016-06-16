@@ -12,14 +12,14 @@ private:
     CJob* m_Job;
     void* m_JobData;
 
-    CThreadMutex m_Mutex;//m_Mutex和m_WorkMutex的区别
+    CThreadMutex& m_Mutex;//m_Mutex和m_WorkMutex的区别
     bool m_IsEnd;//
 
 public:
-    CCondition m_JobCond;//为什么属性是public
-    CThreadMutex m_WorkMutex;
+    CCondition& m_JobCond;//为什么属性是public
+    CThreadMutex& m_WorkMutex;
 
-    CWorkThread();
+    explicit CWorkThread(CThreadMutex &m_Mutex, CCondition &m_JobCond, CThreadMutex &m_WorkMutex);
     virtual ~CWorkThread();
     void Run();
     void Start();

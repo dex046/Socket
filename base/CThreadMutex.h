@@ -7,7 +7,9 @@ class CThreadMutex : noncopyable
 private:
     pthread_mutex_t m_Mutex;
 public:
-    CThreadMutex();
+    friend class Condition;
+
+    explicit CThreadMutex();
     ~CThreadMutex();
     pthread_mutex_t* GetPthreadMutex();
     void Lock();
@@ -19,7 +21,7 @@ public:
 class CThreadMutexGuard : public noncopyable
 {
 public:
-    CThreadMutexGuard(CThreadMutex &m_Mutex);
+    explicit CThreadMutexGuard(CThreadMutex &m_Mutex);
     virtual ~CThreadMutexGuard();
 private:
     CThreadMutex& m_Mutex;

@@ -71,7 +71,7 @@ sleep(1);
     }
 }
 
-Barrier_t::Barrier_t(int count)
+Barrier_t::Barrier_t(int count, CThreadMutex &m_Mutex, CCondition &m_Cond) : m_Mutex(m_Mutex), m_Cond(m_Cond)
 {
     Barrier_init(count);
 }

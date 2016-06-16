@@ -2,13 +2,13 @@
 CThreadManager::CThreadManager()
 {
     m_iNumofthread = 10;
-    m_Pool = new CThreadPool(m_iNumofthread);
+    //m_Pool = new CThreadPool(m_iNumofthread);
 }
 
 CThreadManager::CThreadManager(int num)
 {
     m_iNumofthread = num;
-    m_Pool = new CThreadPool(m_iNumofthread);
+    //m_Pool = new CThreadPool(m_iNumofthread);
 }
 
 CThreadManager::~CThreadManager()

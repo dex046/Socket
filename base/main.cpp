@@ -20,7 +20,10 @@ void *do_barrier_bench(void *barrier)
 int main()
 {
     //cout << "abc" << endl;
-    Barrier_t barrier(N-1);// = new Barrier_t(COUNT);
+    CThreadMutex mutex_cond_;
+    CThreadMutex mutex_;
+    CCondition cond_(mutex_cond_);
+    Barrier_t barrier(N-1, mutex_, cond_);// = new Barrier_t(COUNT);
 
     pthread_t th[N-1];
     clock_t start, end;

@@ -1,5 +1,13 @@
 #include "CThreadPool.h"
-CThreadPool::CThreadPool()
+CThreadPool::CThreadPool(CThreadMutex& m_BusyMutex,
+CThreadMutex& m_IdleMutex,
+CThreadMutex& m_JobMutex,
+CThreadMutex& m_varMutex,
+CCondition& m_BusyCond,
+CCondition& m_IdleCond,
+CCondition& m_IdleJobCond,
+CCondition& m_MaxNumCond) : m_BusyMutex(m_BusyMutex), m_IdleMutex(m_IdleMutex), m_JobMutex(m_JobMutex),
+    m_varMutex(m_varMutex), m_BusyCond(m_BusyCond), m_IdleCond(m_IdleCond), m_IdleJobCond(m_IdleJobCond), m_MaxNumCond(m_MaxNumCond)
 {
     m_MaxNum = 50;
     m_AvailLow = 5;
@@ -8,16 +16,29 @@ CThreadPool::CThreadPool()
 
     m_BusyList.clear();
     m_IdleList.clear();
+
+    CThreadMutex m_Mutex;
+    CThreadMutex m_Cond_mutex;
+    CCondition m_JobCond(m_Cond_mutex);
+    CThreadMutex m_WorkMutex;
     for(int i = 0; i < m_InitNum; ++i)
     {
-        CWorkThread* thr = new CWorkThread;
+        CWorkThread* thr = new CWorkThread(m_Mutex, m_JobCond, m_WorkMutex);
         thr->SetThreadPool(this);
         _AppendToIdleList(thr);
         thr->Start();///////
     }
 }
 
-CThreadPool::CThreadPool(int initnum)
+CThreadPool::CThreadPool(int initnum, CThreadMutex& m_BusyMutex,
+                         CThreadMutex& m_IdleMutex,
+                         CThreadMutex& m_JobMutex,
+                         CThreadMutex& m_varMutex,
+                         CCondition& m_BusyCond,
+                         CCondition& m_IdleCond,
+                         CCondition& m_IdleJobCond,
+                         CCondition& m_MaxNumCond) : m_BusyMutex(m_BusyMutex), m_IdleMutex(m_IdleMutex), m_JobMutex(m_JobMutex),
+                             m_varMutex(m_varMutex), m_BusyCond(m_BusyCond), m_IdleCond(m_IdleCond), m_IdleJobCond(m_IdleJobCond), m_MaxNumCond(m_MaxNumCond)
 {
     assert(initnum>0 && initnum<=30);
     m_MaxNum = 30;
@@ -27,9 +48,15 @@ CThreadPool::CThreadPool(int initnum)
 
     m_BusyList.clear();
     m_IdleList.clear();
+
+
+    CThreadMutex m_Mutex;
+    CThreadMutex m_Cond_mutex;
+    CCondition m_JobCond(m_Cond_mutex);
+    CThreadMutex m_WorkMutex;
     for(int i = 0; i < m_InitNum; ++i)
     {
-        CWorkThread* thr = new CWorkThread;
+        CWorkThread* thr = new CWorkThread(m_Mutex, m_JobCond, m_WorkMutex);
         thr->SetThreadPool(this);
         _AppendToIdleList(thr);
         thr->Start();//begin the thread,the thread wait for job
@@ -119,9 +146,13 @@ void CThreadPool::_MoveToIdleList(CWorkThread *busythread)
 //create num idle thread and put them into idlelist
 void CThreadPool::_CreateIdleThread(int num)
 {
+    CThreadMutex m_Mutex;
+    CThreadMutex m_Cond_mutex;
+    CCondition m_JobCond(m_Cond_mutex);
+    CThreadMutex m_WorkMutex;
     for(int i = 0; i < num; ++i)
     {
-        CWorkThread* thr = new CWorkThread;
+        CWorkThread* thr = new CWorkThread(m_Mutex, m_JobCond, m_WorkMutex);;
         thr->SetThreadPool(this);
         _AppendToIdleList(thr);
         {

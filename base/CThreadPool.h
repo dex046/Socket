@@ -29,22 +29,24 @@ protected:
     void _CreateIdleThread(int num);
 
 public:
-    CThreadMutex m_BusyMutex;
-    CThreadMutex m_IdleMutex;
-    CThreadMutex m_JobMutex;
-    CThreadMutex m_varMutex;//更改成员变量需要使用的mutex
+    CThreadMutex& m_BusyMutex;
+    CThreadMutex& m_IdleMutex;
+    CThreadMutex& m_JobMutex;
+    CThreadMutex& m_varMutex;//更改成员变量需要使用的mutex
 
-    CCondition m_BusyCond;
-    CCondition m_IdleCond;
-    CCondition m_IdleJobCond;
-    CCondition m_MaxNumCond;
+    CCondition& m_BusyCond;
+    CCondition& m_IdleCond;
+    CCondition& m_IdleJobCond;
+    CCondition& m_MaxNumCond;
 
     vector<CWorkThread*> m_ThreadList;//这个是不是没有什么作用?
     vector<CWorkThread*> m_BusyList;
     vector<CWorkThread*> m_IdleList;
 
-    CThreadPool();
-    CThreadPool(int initnum);
+    CThreadPool(int initnum, CThreadMutex& m_BusyMutex, CThreadMutex& m_IdleMutex, CThreadMutex& m_JobMutex, CThreadMutex& m_varMutex,
+                             CCondition& m_BusyCond, CCondition& m_IdleCond, CCondition& m_IdleJobCond, CCondition& m_MaxNumCond);
+    CThreadPool(CThreadMutex& m_BusyMutex, CThreadMutex& m_IdleMutex, CThreadMutex& m_JobMutex, CThreadMutex& m_varMutex,
+                CCondition& m_BusyCond, CCondition& m_IdleCond, CCondition& m_IdleJobCond, CCondition& m_MaxNumCond);
     virtual ~CThreadPool();
 
     void SetMaxNum(int maxnum){m_MaxNum = maxnum;}
